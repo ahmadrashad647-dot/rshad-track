@@ -1,27 +1,39 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyCrlP360Fpx-9tCyggJeoqLgkwnTlRTJ5o",
-  authDomain: "ncc-project-3b0f1.firebaseapp.com",
-  projectId: "ncc-project-3b0f1",
-  storageBucket: "ncc-project-3b0f1.firebasestorage.app",
-  messagingSenderId: "590441541895",
-  appId: "1:590441541895:web:2a861830fcb60f09f655a2"
-};
+// execution.js - FIXED
+document.addEventListener('DOMContentLoaded', function() {
+  // Check auth first
+  auth.onAuthStateChanged((user) => {
+    if (!user) {
+      alert("Please login first!");
+      window.location.href = "index.html";
+      return;
+    }
+  });
 
-if(!firebase.apps.length){
-  firebase.initializeApp(firebaseConfig);
-}
-
-const db = firebase.firestore();
-
-saveBtn.onclick = () => {
-
-  db.collection("dailyEntries").add({
-    subject: subject.value,
-    chapter: chapter.value,
-    time: time.value,
-    created: new Date()
-  })
-  .then(()=> alert("Saved to cloud"))
-  .catch(err=>alert(err.message));
-
-};
+  const saveBtn = document.getElementById('saveBtn');
+  
+  saveBtn.onclick = () => {
+    const subject = document.getElementById('subject').value;
+    const chapter = document.getElementById('chapter').value;
+    const time = document.getElementById('time').value;
+    
+    if (!subject || !chapter || !time) {
+      alert("Please fill all fields!");
+      return;
+    }
+    
+    db.collection("dailyEntries").add({
+      subject: subject,
+      chapter: chapter,
+      time: Number(time),
+      userId: auth.currentUser.uid,
+      created: new Date()
+    })
+    .then(() => {
+      alert("Saved successfully!");
+      document.getElementById('subject').value = "";
+      document.getElementById('chapter').value = "";
+      document.getElementById('time').value = "";
+    })
+    .catch(err => alert("Error: " + err.message));
+  };
+});
