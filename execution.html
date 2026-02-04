@@ -217,7 +217,7 @@ select.form-input { cursor: pointer; appearance: none; background-image: url("da
 </div>
 
 <div class="glass-card liquid-glass">
-
+ <form id="executionForm">
   <div class="form-row">
 
     <div class="form-group">
@@ -231,7 +231,7 @@ select.form-input { cursor: pointer; appearance: none; background-image: url("da
         <option value="Zoology">Math</option>
       </select>
     </div>
-  <form id="executionForm">
+ 
     <div class="form-group">
       <label class="form-label">Chapter</label>
       <input id="chapter" class="form-input" placeholder="e.g., Electromagnetic Waves">
@@ -241,15 +241,13 @@ select.form-input { cursor: pointer; appearance: none; background-image: url("da
       <label class="form-label">Duration (Minutes)</label>
       <input id="time" type="number" class="form-input" placeholder="e.g., 60">
     </div>
-  </form>
   </div>
 
   <button id="saveBtn" class="btn btn-primary btn-glow">
     💾 Save Entry
   </button>
-
 </div>
-
+</form>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
